@@ -57,13 +57,11 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   spec = {
-    { "LazyVim/LazyVim",                                    import = "lazyvim.plugins" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.coding.codeium" },
-    { import = "plugins" },
-
+  { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
+    { import = 'lazyvim.plugins.extras.formatting.prettier' },
+    { import = 'lazyvim.plugins.extras.linting.eslint' },
+    { import = 'lazyvim.plugins.extras.ui.mini-animate' },
+    { import = 'plugins' },
   },
   -- NOTE: First, some plugins that don't require any configuration
   -- Git related plugins
@@ -112,7 +110,7 @@ require('lazy').setup({
     },
   },
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -338,8 +336,8 @@ vim.opt.smartindent = true
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -444,6 +442,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
+require('nvim-treesitter.install').prefer_git = true
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
@@ -451,7 +450,6 @@ vim.defer_fn(function()
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
-
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {
