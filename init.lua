@@ -1,11 +1,8 @@
 --[[
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
 
   If you don't know anything about Lua, I recommend taking some time to read through
   a guide. One possible example:
   - https://learnxinyminutes.com/docs/lua/
-
 
   And then you can explore or search through `:help lua-guide`
   - https://neovim.io/doc/user/lua-guide.html
@@ -57,10 +54,9 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   spec = {
-  { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
+    { 'LazyVim/LazyVim',                                    import = 'lazyvim.plugins' },
     { import = 'lazyvim.plugins.extras.formatting.prettier' },
     { import = 'lazyvim.plugins.extras.linting.eslint' },
-    { import = 'lazyvim.plugins.extras.ui.mini-animate' },
     { import = 'plugins' },
   },
   -- NOTE: First, some plugins that don't require any configuration
@@ -110,7 +106,7 @@ require('lazy').setup({
     },
   },
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -215,12 +211,30 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    opts = {
+      indent = {
+        char = "│",
+        tab_char = "│",
+      },
+      exclude = {
+        filetypes = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+      },
+    }
   },
-
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -241,7 +255,6 @@ require('lazy').setup({
       },
     },
   },
-
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
