@@ -54,8 +54,7 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   spec = {
-    { 'LazyVim/LazyVim',                                    import = 'lazyvim.plugins' },
-    { import = 'lazyvim.plugins.extras.formatting.prettier' },
+    { 'LazyVim/LazyVim',                               import = 'lazyvim.plugins' },
     { import = 'lazyvim.plugins.extras.linting.eslint' },
     { import = 'plugins' },
   },
@@ -205,34 +204,6 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {
-      indent = {
-        char = "│",
-        tab_char = "│",
-      },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-      },
-    }
-  },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
   -- Fuzzy Finder (files, lsp, etc)
