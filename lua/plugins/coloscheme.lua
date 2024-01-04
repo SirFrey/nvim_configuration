@@ -1,10 +1,14 @@
 return {
   {
     "folke/tokyonight.nvim",
-    lazy = true,
-    opts = { style = "moon", transparent = true, styles = { sidebars = "transparent", floats = "transparent" } }
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
+    },
   },
-
   {
     "xiyaowong/transparent.nvim",
     config = function()
@@ -16,7 +20,7 @@ return {
           'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
           'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
           'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
-          'EndOfBuffer',
+          'EndOfBuffer', 'Lualine'
         },
         extra_groups = {},   -- table: additional groups that should be cleared
         exclude_groups = {}, -- table: groups you don't want to clear
