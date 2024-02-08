@@ -9,11 +9,6 @@
 
 In addition, I have some  NOTE: items throughout the file.
 
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -58,7 +53,6 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   --unspecified
-  'andweeb/presence.nvim',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -88,7 +82,10 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  {
+    'andweeb/presence.nvim',
+    enabled = true
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -226,6 +223,7 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -281,16 +279,16 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
+-- NOTE: You jshould make sure your terminal supports this
 vim.o.termguicolors = true
 
 vim.opt.tabstop = 4
 -- vim.opt.softtabstop = 4
 -- vim.opt.shiftwidth = 2
 -- vim.opt.expandtab = true
-vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
-    "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
-    "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
+-- vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+--     "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
+--     "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
 vim.opt.smartindent = true
 
 -- [[ Basic Keymaps ]]
@@ -324,13 +322,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'css', 'astro', 'tsx', 'typescript', 'html' },
-  auto_install = true,
-  highlight = {
-    enable = true
-  }
-})
+-- require('nvim-treesitter.configs').setup({
+--   ensure_installed = { 'css', 'astro', 'typescript', 'html' },
+--   highlight = {
+--     enable = true
+--   }
+-- })
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -413,11 +410,11 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
-require('nvim-treesitter.install').prefer_git = true
+-- require('nvim-treesitter.install').prefer_git = true
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -617,7 +614,6 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
