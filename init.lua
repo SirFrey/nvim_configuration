@@ -286,6 +286,7 @@ vim.opt.tabstop = 4
 -- vim.opt.softtabstop = 4
 -- vim.opt.shiftwidth = 2
 -- vim.opt.expandtab = true
+vim.opt.guicursor = ""
 -- vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
 --     "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
 --     "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
@@ -294,11 +295,12 @@ vim.opt.smartindent = true
 -- [[ Basic Keymaps ]]
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
-
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-
+vim.keymap.set("x", "<leader>p", "\"_dP")
+vim.keymap.set("n", "Q", "<nop>")
 -- Move trough pages
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
