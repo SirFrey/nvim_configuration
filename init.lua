@@ -19,6 +19,8 @@ In addition, I have some  NOTE: items throughout the file.
 --    `:help lazy.nvim.txt` for more info
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.autoformat = false
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -43,7 +45,7 @@ require('lazy').setup({
     {
       'LazyVim/LazyVim',
       import = 'lazyvim.plugins',
-      install = { colorscheme = { "catppuccin", "tokyonight", "habamax" } },
+      install = { colorscheme = { 'catppuccin', 'tokyonight', 'habamax' } },
     },
     { import = 'lazyvim.plugins.extras.linting.eslint' },
     { import = 'plugins' },
@@ -63,9 +65,10 @@ require('lazy').setup({
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     opts = {
+      autoformat = false,
       setup = {
         clangd = function(_, opts)
-          opts.capabilities.offsetEncoding = { "utf-16" }
+          opts.capabilities.offsetEncoding = { 'utf-16' }
         end,
       },
     },
@@ -84,7 +87,7 @@ require('lazy').setup({
   },
   {
     'andweeb/presence.nvim',
-    enabled = true
+    enabled = true,
   },
   {
     -- Autocompletion
@@ -103,7 +106,7 @@ require('lazy').setup({
     },
   },
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -223,11 +226,10 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  require 'kickstart.plugins.autoformat',
+  -- require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -286,7 +288,7 @@ vim.opt.tabstop = 4
 -- vim.opt.softtabstop = 4
 -- vim.opt.shiftwidth = 2
 -- vim.opt.expandtab = true
-vim.opt.guicursor = ""
+vim.opt.guicursor = ''
 -- vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
 --     "i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100",
 --     "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100"
@@ -295,15 +297,15 @@ vim.opt.smartindent = true
 -- [[ Basic Keymaps ]]
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-vim.keymap.set("x", "<leader>p", "\"_dP")
-vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set('x', '<leader>p', '"_dP')
+vim.keymap.set('n', 'Q', '<nop>')
 -- Move trough pages
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -344,7 +346,35 @@ require('telescope').setup {
 }
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- Toggle format_on_save
+require('conform').setup {
+  format_on_save = function(bufnr)
+    -- -- Disable with a global or buffer-local variable
+    -- if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+    --   return
+    -- end
+    -- return { timeout_ms = 500, lsp_fallback = true }
+    return nil
+  end,
+}
 
+vim.api.nvim_create_user_command('FormatDisable', function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, {
+  desc = 'Disable autoformat-on-save',
+  bang = true,
+})
+vim.api.nvim_create_user_command('FormatEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = 'Re-enable autoformat-on-save',
+})
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
 local function find_git_root()
@@ -647,11 +677,11 @@ cmp.setup {
     { name = 'path' },
   },
 }
-require("lualine").setup({
+require('lualine').setup {
   options = {
     theme = require('themes.lualine').theme(),
   },
-})
+}
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
