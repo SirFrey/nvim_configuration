@@ -681,6 +681,9 @@ require('lualine').setup {
   options = {
     theme = require('themes.lualine').theme(),
   },
+  sections = {
+    lualine_b = { 'diagnostics' },
+  },
 }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
