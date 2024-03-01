@@ -1,8 +1,8 @@
 return {
-  'bennypowers/template-literal-comments.nvim',
-  opts = true,
-  ft = {
-    'javascript',
-    'typescript',
-  },
+--  'bennypowers/template-literal-comments.nvim',
+--  opts = true,
+--  ft = {
+--    'javascript',
+--    'typescript',
+--  },
 }
