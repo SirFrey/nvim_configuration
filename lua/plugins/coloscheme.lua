@@ -6,10 +6,8 @@ return {
       integrations = {
         aerial = true,
         alpha = true,
-        cmp = true,
         dashboard = true,
         flash = true,
-        gitsigns = true,
         headlines = true,
         illuminate = true,
         indent_blankline = { enabled = true },

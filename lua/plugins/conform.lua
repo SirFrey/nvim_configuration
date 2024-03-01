@@ -1,11 +1,12 @@
 return {
   'stevearc/conform.nvim',
+  dependencies = { 'mason.nvim' },
   cmd = 'ConformInfo',
   keys = {
     {
-      '<leader>cF',
+      '<leader>f',
       function()
-        require('conform').format { formatters = { 'injected' } }
+        require('conform').format { async = true, lsp_fallback = true }
       end,
       mode = { 'n', 'v' },
       desc = 'Format Injected Langs',
