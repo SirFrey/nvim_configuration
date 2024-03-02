@@ -1,8 +1,7 @@
-require('config.options')
+require 'config.options'
 --[[
   - https://learnxinyminutes.com/docs/lua/
  ]]
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
@@ -18,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure plugins ]]
-require('lazy').setup({
+require('lazy').setup {
   spec = {
     {
       'LazyVim/LazyVim',
@@ -26,8 +25,8 @@ require('lazy').setup({
     },
     { import = 'plugins' },
   },
-})
-require('config.keymaps')
+}
+require 'config.keymaps'
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -44,22 +43,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
--- Toggle format_on_save
-require('conform').setup {
-  format_on_save = function()
-    return nil
-  end,
-}
-
 
 -- require('config.lsp')
-vim.cmd('autocmd BufRead,BufNewFile *.mdx set filetype=mdx')
-
--- require('lualine').setup {
---  options = {
---    theme = require('themes.lualine').theme(),
---  },
---  sections = {
---    lualine_b = { 'diagnostics' },
---  },
---}
+vim.cmd 'autocmd BufRead,BufNewFile *.mdx set filetype=mdx'
