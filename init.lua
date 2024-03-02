@@ -10,7 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
+    '--branch=stable',
     lazypath,
   }
 end
@@ -21,28 +21,10 @@ require('lazy').setup {
   spec = {
     {
       'LazyVim/LazyVim',
-      install = { colorscheme = { 'catppuccin', 'tokyonight', 'habamax' } },
+      install = { colorscheme = { 'catppuccin' } },
     },
     { import = 'plugins' },
   },
 }
+
 require 'config.keymaps'
-
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
-
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-
--- require('config.lsp')
-vim.cmd 'autocmd BufRead,BufNewFile *.mdx set filetype=mdx'
