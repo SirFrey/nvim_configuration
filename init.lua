@@ -26,5 +26,8 @@ require('lazy').setup {
     { import = 'plugins' },
   },
 }
+-- load vim file to load some scripts
+local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
+vim.cmd.source(vimrc)
 
 require 'config.keymaps'
