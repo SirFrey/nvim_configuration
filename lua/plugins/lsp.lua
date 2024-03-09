@@ -27,12 +27,34 @@ return {
       -- Here is where you configure the autocompletion settings.
       local lsp_zero = require 'lsp-zero'
       lsp_zero.extend_cmp()
+
       -- And you can configure cmp even more, if you want to.
+      local tailwindcss_colors = require 'tailwindcss-colorizer-cmp'
+
+      local cmp_formatter = function(entry, vim_item)
+        -- vim_item as processed by tailwindcss-colorizer-cmp
+        vim_item = tailwindcss_colors.formatter(entry, vim_item)
+
+        -- change menu (name of source)
+        vim_item.menu = ({
+          nvim_lsp = '[LSP]',
+          buffer = '[Buffer]',
+          path = '[Path]',
+          emoji = '[Emoji]',
+          luasnip = '[LuaSnip]',
+          vsnip = '[VSCode Snippet]',
+          calc = '[Calc]',
+          spell = '[Spell]',
+        })[entry.source.name]
+        return vim_item
+      end
       local cmp = require 'cmp'
       local cmp_action = lsp_zero.cmp_action()
-
       cmp.setup {
-        formatting = lsp_zero.cmp_format(),
+        formatting = {
+          fields = { 'abbr', 'kind', 'menu' },
+          format = cmp_formatter,
+        },
         mapping = cmp.mapping.preset.insert {
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
@@ -40,6 +62,10 @@ return {
           ['<C-f>'] = cmp_action.luasnip_jump_forward(),
           ['<C-b>'] = cmp_action.luasnip_jump_backward(),
           ['<CR>'] = cmp.mapping.confirm { select = true },
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
         },
       }
     end,
