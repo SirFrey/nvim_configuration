@@ -15,8 +15,8 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
--- [[ Configure plugins ]]
 
+-- [[ Configure plugins ]]
 require('lazy').setup {
   spec = {
     {
@@ -27,7 +27,8 @@ require('lazy').setup {
   },
 }
 -- load vim file to load some scripts
-local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
+local vimrc = vim.fn.stdpath 'config' .. '/vimrc.vim'
 vim.cmd.source(vimrc)
 
+require('luasnip.loaders.from_vscode').lazy_load()
 require 'config.keymaps'

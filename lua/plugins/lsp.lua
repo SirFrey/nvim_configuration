@@ -18,10 +18,15 @@ return {
 
   -- Autocompletion
   {
+    'L3MON4D3/LuaSnip',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+  },
+  {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
       { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
     },
     config = function()
       -- Here is where you configure the autocompletion settings.
@@ -62,10 +67,6 @@ return {
           ['<C-f>'] = cmp_action.luasnip_jump_forward(),
           ['<C-b>'] = cmp_action.luasnip_jump_backward(),
           ['<CR>'] = cmp.mapping.confirm { select = true },
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
         },
       }
     end,
